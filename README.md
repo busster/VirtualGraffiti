@@ -32,5 +32,5 @@ This would include displaying the camera preview in real-time, and rendering an 
 * cordova plugin add cordova-plugin-geolocation
 
 # Contributors
-[@stelane](https://github.com/stelane)
-[@corbin1987](https://github.com/Corbin1987)
+- [@stelane](https://github.com/stelane)
+- [@corbin1987](https://github.com/Corbin1987)
