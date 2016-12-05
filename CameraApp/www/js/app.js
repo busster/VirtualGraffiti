@@ -54,11 +54,30 @@ var lineThickness = 1;
       drawingColor = "#727272 "; // grey
     }
   }
-
   function changeLineWidth() {
-    lineThickness = parseInt(document.getElementById("line-width").value);
+    var lineWidth = document.getElementById("line-width").value;
+    if (lineWidth === "1") {
+      lineThickness = 1;
+    } else if (lineWidth === "2") {
+      lineThickness = 2;
+    } else if (lineWidth === "3") {
+      lineThickness = 3;
+    } else if (lineWidth === "4") {
+      lineThickness = 4;
+    } else if (lineWidth === "5") {
+      lineThickness = 5;
+    } else if (lineWidth === "6") {
+      lineThickness = 6;
+    } else if (lineWidth === "7") {
+      lineThickness = 7;
+    } else if (lineWidth === "8") {
+      lineThickness = 8;
+    } else if (lineWidth === "9") {
+      lineThickness = 9;
+    } else if (lineWidth === "10") {
+      lineThickness = 10;
+    }
   }
-
 function removePictureEventListener(){
   var pictureDiv = angular.element( document.querySelector( '.picture-overlay' ) );
   pictureDiv.remove();
@@ -121,14 +140,16 @@ app.controller('CameraCtrl', function($scope, $cordovaCamera, $cordovaGeolocatio
     canvasData = canvas.toDataURL();
     // canvasSave();
     // ADD A SAVING TAG
-    // url: 'https://radiant-savannah-52082.herokuapp.com/pictures',
+    // var url = 'http://172.16.0.12:3000/pictures'
+    var url = 'https://radiant-savannah-52082.herokuapp.com/pictures'
     $http({
     method: 'POST',
-    url : 'http://172.16.0.12:3000/pictures',
+    url: url,
     data: {params: {pictureData: pictureData, coordData: coordData, canvasData: canvasData}}
     }).then(function successCallback(response) {
       // console.log("in successCallback")
       // $scope.class = "bot";
+      clearCanvas();
       $scope.show = false;
       $scope.disabled = true;
       // respond with a success toast
@@ -569,10 +590,12 @@ app.controller('MapController', function($scope, $cordovaGeolocation, $ionicLoad
         }), function(error) {
           // error for coords
         };
+        // https://radiant-savannah-52082.herokuapp.com/pictures
+        // http://172.16.0.12:3000/
         function getMarkers(){
           $http({
           method: 'GET',
-          url : 'http://172.16.0.12:3000/pictures?lat=' + lat + '&long=' + lng,
+          url : 'https://radiant-savannah-52082.herokuapp.com/pictures?lat=' + lat + '&long=' + lng,
           }).then(function successCallback(response) {
             for (var i = 0; i < markers.length; i++) {
               markers[i].setMap(null);
@@ -599,10 +622,10 @@ app.controller('MapController', function($scope, $cordovaGeolocation, $ionicLoad
         function markersEventListener(){
             markers.forEach(function(marker){
               google.maps.event.addListener(marker, 'click', function() {
-
+                
                 displayPicture(marker);
               });
-             })
+             }) 
         }
 
         function displayPicture(marker){
@@ -611,7 +634,7 @@ app.controller('MapController', function($scope, $cordovaGeolocation, $ionicLoad
           var camDiv = angular.element( document.querySelector( '#camera' ) );
           camDiv.append('<div class="picture-overlay"><img class="main-img" src="http:' + marker.imageUrl + '"><img src="http:' + marker.drawnImageUrl + '"><div class="padding top-right"><button onclick="removePictureEventListener()" class="super small-me clear-button"><i class="icon ion-android-close"></i></button></div></div>')
         }
-
+      
     }
   });
 }); // end of mapController
