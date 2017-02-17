@@ -1,5 +1,8 @@
 # VirtualGraffiti
 
+# App
+Download and open the apk file on your android device if you would like to use the app!
+
 # Idea
 The original concept of VirtualGraffiti was to create an Augmented Reality application to allow users to create a drawing, position it in three dimensional space, and view it through AR in perspective in real-time.
 
